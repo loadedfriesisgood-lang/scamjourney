@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in - Scam Journey Intelligence</title><link rel="stylesheet" href="style.css"></head>
+<body style="display:block"><main class="authbox">
+<h1>Scam Journey Intelligence</h1>
+<div class="tabs" role="tablist">
+  <button class="btn" role="tab" id="tabLogin" aria-selected="true" type="button">Log in</button>
+  <button class="btn" role="tab" id="tabReg" aria-selected="false" type="button">Create account</button>
+</div>
+<form id="authForm" class="panel" novalidate>
+  <label id="nameRow" hidden>Name<input id="name" autocomplete="name" maxlength="50"></label>
+  <label>Email<input id="email" type="email" autocomplete="email" required></label>
+  <label>Password<input id="password" type="password" autocomplete="current-password" minlength="10" required></label>
+  <p class="hint" id="pwHint" hidden>At least 10 characters.</p>
+  <div id="authErr" role="alert"></div>
+  <button class="btn pri" id="authGo" type="submit">Log in</button>
+</form>
+<p class="hint"><a href="index.html" style="color:var(--teal)">Continue without an account</a></p>
+</main><script src="auth.js"></script></body></html>

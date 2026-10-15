@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scam Journey Intelligence</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <button id="menuBtn" class="btn" aria-expanded="false" aria-controls="side">Menu</button>
+  <strong>Scam Journey Intelligence</strong>
+</header>
+
+<nav id="side" aria-label="Modules">
+  <button class="brand" data-go="home" data-nav="home">Scam Journey<br>Intelligence</button>
+  <button data-go="check" data-nav="check">1. Scam Check</button>
+  <button data-go="timeline" data-nav="timeline">2. Journey Timeline</button>
+  <button data-go="warning" data-nav="warning">3. Next-Move Warning</button>
+  <button data-go="sim" data-nav="sim">4. Scam Simulator</button>
+  <button data-go="network" data-nav="network">5. Network Map</button>
+  <button data-go="plan" data-nav="plan">6. Action Plan</button>
+  <button id="authLink" data-nav="auth">Log in</button>
+  <p class="side-note">Analysis runs in your browser. Only your account details go to the server.</p>
+</nav>
+
+<main id="main">
+
+<!-- HOME -->
+<section class="view" id="v-home" tabindex="-1">
+  <h1>Scam Journey Intelligence</h1>
+  <p class="lead">Mapping, predicting and disrupting scams from first contact to final payment. Understand the journey, interrupt the scam.</p>
+  <button class="btn pri big" data-go="check">Check a suspicious message</button>
+
+  <h2>The journey</h2>
+  <ol class="journey" aria-label="Scam journey stages">
+    <li><b>Lure</b><span>First contact</span></li>
+    <li><b>Hook</b><span>Attractive or alarming claim</span></li>
+    <li><b>Trust</b><span>Fake credibility</span></li>
+    <li><b>Pressure</b><span>Urgency, fear, secrecy</span></li>
+    <li><b>Payment</b><span>Money or credentials</span></li>
+    <li><b>Exit</b><span>Vanish or ask for more</span></li>
+  </ol>
+
+  <h2>Modules</h2>
+  <div class="cards">
+    <button class="card" data-go="check"><h3>Scam Check</h3><p>Paste a message or URL and see which warning signs were found, with weights.</p></button>
+    <button class="card" data-go="timeline"><h3>Journey Timeline</h3><p>Answer simple questions to map what happened across six stages.</p></button>
+    <button class="card" data-go="warning"><h3>Next-Move Warning</h3><p>See what a scammer might ask for next, with a cautious confidence label.</p></button>
+    <button class="card" data-go="sim"><h3>Scam Simulator</h3><p>Six fictional scenarios to practise spotting scams safely.</p></button>
+    <button class="card" data-go="network"><h3>Network Map</h3><p>Explore how sample reports link through shared indicators.</p></button>
+    <button class="card" data-go="plan"><h3>Action Plan</h3><p>Get a checklist matched to what happened, with India reporting links.</p></button>
+  </div>
+
+  <h2>Recent demo activity <span class="chip neutral">Sample data</span></h2>
+  <ul class="list" id="recent"></ul>
+
+  <div class="note">
+    <b>Read this first.</b> Results are rule-based estimates, not proof. A low score never means a message is safe, and a high score does not prove fraud.
+    This is a student demonstration: it has no live scam database, no machine-learning model and no backend. All people, numbers, domains and wallets are fictional.
+  </div>
+</section>
+
+<!-- MODULE 1 -->
+<section class="view" id="v-check" tabindex="-1" hidden>
+  <button class="back" data-go="home">Back to dashboard</button>
+  <h1>Scam Check</h1>
+  <p class="lead">Rule-based and explainable. Text is analysed in your browser; links are never opened.</p>
+  <div class="panel">
+    <label>Input type
+      <select id="chkType">
+        <option value="message">Message</option>
+        <option value="url">URL</option>
+        <option value="phone">Phone number</option>
+        <option value="email">Email address</option>
+      </select>
+    </label>
+    <label>Suspicious text, number or address
+      <textarea id="chkText" rows="6" placeholder="Paste an SMS, email, job offer or chat message"></textarea>
+    </label>
+    <label>Optional URL
+      <input id="chkUrl" type="text" placeholder="https://example.com/page" autocomplete="off">
+    </label>
+    <div class="row">
+      <button class="btn pri" id="chkGo">Analyse</button>
+      <button class="btn" id="chkSample">Load sample scam</button>
+      <button class="btn" id="chkClear">Clear</button>
+    </div>
+    <p class="hint" id="sampleTag"></p>
+    <p class="hint">Do not paste real passwords, OTPs, PINs or card numbers.</p>
+  </div>
+  <div id="chkOut" aria-live="polite"></div>
+</section>
+
+<!-- MODULE 2 -->
+<section class="view" id="v-timeline" tabindex="-1" hidden>
+  <button class="back" data-go="home">Back to dashboard</button>
+  <h1>Journey Timeline</h1>
+  <p class="lead">Say what happened. Leave anything you are unsure about as Unknown; nothing is assumed.</p>
+  <div class="panel"><div id="tlQs"></div>
+    <div class="row"><button class="btn pri" id="tlGo">Build timeline</button><button class="btn" id="tlReset">Reset answers</button></div>
+  </div>
+  <div id="tlOut" aria-live="polite"></div>
+</section>
+
+<!-- MODULE 3 -->
+<section class="view" id="v-warning" tabindex="-1" hidden>
+  <button class="back" data-go="home">Back to dashboard</button>
+  <h1>Next-Move Warning</h1>
+  <p class="lead">Common patterns only. These are possibilities, not predictions of fact.</p>
+  <div class="panel">
+    <label>Scam category <select id="wCat"></select></label>
+    <label>Current stage <select id="wStage"></select></label>
+    <label>Case details (optional)
+      <textarea id="wText" rows="4" placeholder="e.g. They asked for a registration fee and moved me to Telegram"></textarea>
+    </label>
+    <button class="btn pri" id="wGo">Generate warning</button>
+  </div>
+  <div id="wOut" aria-live="polite"></div>
+</section>
+
+<!-- MODULE 4 -->
+<section class="view" id="v-sim" tabindex="-1" hidden>
+  <button class="back" data-go="home">Back to dashboard</button>
+  <h1>Scam Simulator</h1>
+  <p class="lead">Every scenario is fictional. Nothing is sent and no payment is made.</p>
+  <div id="simBox" class="panel"></div>
+</section>
+
+<!-- MODULE 5 -->
+<section class="view" id="v-network" tabindex="-1" hidden>
+  <button class="back" data-go="home">Back to dashboard</button>
+  <h1>Scam Network Map</h1>
+  <p class="lead">Fictional sample reports linked by shared indicators. Click or press Enter on a node.</p>
+  <div class="note">Shared indicators are clues, not proof of common ownership or criminal responsibility. This is not a live or verified investigation.</div>
+  <div class="row filters">
+    <label>Search <input id="nSearch" type="search" placeholder="e.g. wallet, 90000"></label>
+    <label>Type <select id="nType"><option value="">All</option><option value="report">Reports</option><option value="phone">Phone</option><option value="domain">Domain</option><option value="wallet">Wallet</option><option value="email">Email</option></select></label>
+  </div>
+  <div class="netgrid">
+    <div class="panel"><svg id="net" viewBox="0 0 640 380" role="img" aria-label="Network of sample reports and shared indicators"></svg>
+      <div class="legend" id="legend"></div></div>
+    <div>
+      <div class="panel" id="nDetail"><p class="hint">Select a node to see its details.</p></div>
+      <h2>Sample reports</h2><ul class="list" id="nReports"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 6 -->
+<section class="view" id="v-plan" tabindex="-1" hidden>
+  <button class="back" data-go="home">Back to dashboard</button>
+  <h1>Action Plan</h1>
+  <p class="lead">Tick everything that applies. The checklist adapts to your answers.</p>
+  <div class="panel"><div id="planQs" class="checks"></div></div>
+  <div id="planOut" aria-live="polite"></div>
+</section>
+
+</main>
+<script src="script.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
